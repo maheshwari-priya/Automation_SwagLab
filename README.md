@@ -68,7 +68,7 @@ newman run postman/SwagLab_API_Collection.postman_collection.json \
 
 ## 4. SoapUI Suite
 
-Open `soapui-tests/SwagLab-soapui-project.xml` in SoapUI Open Source, or run headless via the `soapui-testrunner` CLI / Docker image (wired into `docker-compose.yml`).
+Tests the public **DNE Online Calculator** SOAP service (`http://www.dneonline.com/calculator.asmx?WSDL`) — Add, Subtract, Multiply, Divide, plus a divide-by-zero edge case. Open `soapui-tests/SwagLab-soapui-project.xml` in SoapUI Open Source, or run headless via the `soapui-testrunner` CLI / Docker image (wired into `docker-compose.yml`). See `soapui-tests/README.md` for details.
 
 ---
 
