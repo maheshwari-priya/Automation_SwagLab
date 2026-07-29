@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+
+  playwright-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: swaglab_playwright
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+      - ./screenshots:/app/screenshots
+    command: npx playwright test
+
+  selenium-tests:
+    build:
+      context: ./selenium-tests
+      dockerfile: Dockerfile
+    container_name: swaglab_selenium
+    shm_size: "2gb"
+    volumes:
+      - ./selenium-tests/reports:/app/reports
+    command: npm test
+
+  postman-tests:
+    image: postman/newman:alpine
+    container_name: swaglab_postman
+    volumes:
+      - ./postman:/etc/newman
+    command: >
+      run SwagLab_API_Collection.postman_collection.json
+      -e environment.postman_environment.json
+      -r cli,htmlextra
+      --reporter-htmlextra-export reports/report.html
+
+  soapui-tests:
+    image: smartbear/soapuios-testrunner:latest
+    container_name: swaglab_soapui
+    volumes:
+      - ./soapui-tests:/soapui-tests
+    command: -s "TestSuite" /soapui-tests/SwagLab-soapui-project.xml

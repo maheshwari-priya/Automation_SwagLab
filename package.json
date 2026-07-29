@@ -1,0 +1,20 @@
+{
+  "name": "automation_swaglab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@playwright/test": "^1.61.1",
+    "allure-commandline": "^2.43.0"
+  },
+  "devDependencies": {
+    "allure-playwright": "^3.10.2"
+  }
+}

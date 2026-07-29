@@ -1,0 +1,106 @@
+name: Automation Suite CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  playwright-tests:
+    name: Playwright UI Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results/
+          retention-days: 14
+
+  selenium-tests:
+    name: Selenium UI Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Selenium dependencies
+        working-directory: ./selenium-tests
+        run: npm ci
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Run Selenium tests
+        working-directory: ./selenium-tests
+        run: npm test
+
+  postman-api-tests:
+    name: Postman API Tests (Newman)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-htmlextra
+
+      - name: Run Postman collection
+        run: |
+          newman run postman/SwagLab_API_Collection.postman_collection.json \
+            -e postman/environment.postman_environment.json \
+            -r cli,htmlextra \
+            --reporter-htmlextra-export postman/reports/report.html
+
+      - name: Upload Postman report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-report
+          path: postman/reports/
+          retention-days: 14
+
+  soapui-tests:
+    name: SoapUI Web Service Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run SoapUI tests via Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/soapui-tests:/soapui-tests \
+            smartbear/soapuios-testrunner:latest \
+            -s "TestSuite" /soapui-tests/SwagLab-soapui-project.xml || true

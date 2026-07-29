@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Playwright
+/playwright-report/
+/test-results/
+/allure-results/
+/allure-report/
+/screenshots/*.png
+/screenshoot/
+
+# Selenium
+/selenium-tests/node_modules/
+/selenium-tests/reports/
+
+# Postman / Newman
+/postman/reports/
+/postman/newman/
+
+# SoapUI
+/soapui-tests/soapui-reports/
+*.log
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Env
+.env
+.env.local
