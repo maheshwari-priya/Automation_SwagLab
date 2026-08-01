@@ -1,33 +1,57 @@
+# =========================
 # Dependencies
+# =========================
 node_modules/
 
+# =========================
 # Playwright
-/playwright-report/
-/test-results/
-/allure-results/
-/allure-report/
-/screenshots/*.png
-/screenshoot/
+# =========================
+playwright-report/
+test-results/
+allure-results/
+allure-report/
+screenshots/*.png
 
+# =========================
 # Selenium
-/selenium-tests/node_modules/
-/selenium-tests/reports/
+# =========================
+selenium-tests/node_modules/
+selenium-tests/reports/
 
+# =========================
 # Postman / Newman
-/postman/reports/
-/postman/newman/
+# =========================
+postman/reports/
+postman/newman/
 
+# =========================
 # SoapUI
-/soapui-tests/soapui-reports/
-*.log
+# =========================
+soapui-tests/soapui-reports/
 
-# OS / Editor
-.DS_Store
-Thumbs.db
+# =========================
+# Logs
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.local
+
+# =========================
+# VS Code / IDE
+# =========================
 .vscode/
 .idea/
 *.swp
 
-# Env
-.env
-.env.local
+# =========================
+# Operating System Files
+# =========================
+.DS_Store
+Thumbs.db
