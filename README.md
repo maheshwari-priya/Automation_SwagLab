@@ -1,106 +1,108 @@
-# Swag Labs Automation Framework
+# 🚀 Automation SwagLab
 
-## Overview
-
-An End-to-End QA Automation portfolio project covering **UI, API, and Web Service testing**, built around the [SauceDemo (Swag Labs)](https://www.saucedemo.com) e-commerce app, plus a demo REST API and a SOAP service.
-
-| Layer | Tool | Language |
-|---|---|---|
-| UI Automation (primary) | **Playwright** | JavaScript |
-| UI Automation (secondary) | **Selenium WebDriver** | JavaScript (Mocha) |
-| REST API Testing | **Postman / Newman** | JSON collection |
-| SOAP Web Service Testing | **SoapUI** | XML project |
-| CI/CD | **GitHub Actions** | YAML |
-| Containerization | **Docker / Docker Compose** | — |
-| Reporting | **Allure Report** + Playwright HTML Report + Mochawesome + Newman HTML Extra | — |
+An End-to-End QA Automation Framework developed for the SauceDemo web application using **Playwright** and **JavaScript**. The framework follows the **Page Object Model (POM)** design pattern to create reusable, maintainable, and scalable automated tests.
 
 ---
 
-## Project Structure
+## 📌 Features
 
-```
-Automation_SwagLab/
-├── .github/workflows/ci.yml     # CI pipeline: Playwright, Selenium, Postman, SoapUI
-├── Dockerfile                   # Playwright container
-├── docker-compose.yml           # Orchestrates all 4 test suites
-├── fixtures/                    # Playwright hooks
-├── pages/                       # Playwright Page Object Model
-├── tests/                       # Playwright test specs
-├── test-data/                   # JSON test data
-├── utils/                       # Screenshot utility
-├── selenium-tests/              # Selenium WebDriver suite (own package.json + Dockerfile)
-│   ├── pages/
-│   └── tests/
-├── postman/                     # Postman collection + environment (reqres.in demo API)
-└── soapui-tests/                # SoapUI project (SOAP service tests)
+- End-to-End UI Automation
+- Page Object Model (POM)
+- Data-Driven Testing using JSON
+- Login Test Automation
+- Product Validation
+- Cart Functionality Testing
+- Checkout Process Testing
+- Logout Validation
+- Selenium Test Examples
+- Postman API Collection
+- SoapUI Test Suite
+- Docker Support
+- GitHub Actions Workflow
+
+---
+
+## 🛠️ Technologies Used
+
+- Playwright
+- JavaScript (ES6)
+- Node.js
+- Page Object Model (POM)
+- JSON
+- Selenium
+- Postman
+- SoapUI
+- Docker
+- Git & GitHub
+
+---
+
+## 📂 Project Structure
+
+```text
+Automation_SwagLab
+│
+├── .github/
+├── fixtures/
+├── pages/
+├── postman/
+├── selenium-tests/
+├── soapui-tests/
+├── test-data/
+├── tests/
+├── utils/
+│
+├── Dockerfile
+├── docker-compose.yml
+├── package.json
+├── playwright.config.js
+└── README.md
 ```
 
 ---
 
-## 1. Playwright UI Suite (primary)
+## ✅ Test Coverage
 
-```bash
-npm install
-npx playwright install
-npx playwright test
-npx playwright show-report          # HTML report
-allure generate allure-results --clean && allure open   # Allure report
-```
+### Authentication
 
-## 2. Selenium UI Suite
+- Valid Login
+- Invalid Login
+- Locked User Login
 
-```bash
-cd selenium-tests
-npm install
-npm test
-```
+### Product
 
-## 3. Postman / API Suite
+- Verify Products
+- Add Product to Cart
+- Remove Product
 
-Requires a free API key from [reqres.in](https://reqres.in) (set it in `postman/environment.postman_environment.json`).
+### Cart
 
-```bash
-npm install -g newman newman-reporter-htmlextra
-newman run postman/SwagLab_API_Collection.postman_collection.json \
-  -e postman/environment.postman_environment.json \
-  -r cli,htmlextra --reporter-htmlextra-export postman/reports/report.html
-```
+- Verify Cart Items
 
-## 4. SoapUI Suite
+### Checkout
 
-Tests the public **DNE Online Calculator** SOAP service (`http://www.dneonline.com/calculator.asmx?WSDL`) — Add, Subtract, Multiply, Divide, plus a divide-by-zero edge case. Open `soapui-tests/SwagLab-soapui-project.xml` in SoapUI Open Source, or run headless via the `soapui-testrunner` CLI / Docker image (wired into `docker-compose.yml`). See `soapui-tests/README.md` for details.
+- Complete Checkout Process
+
+### Session
+
+- User Logout
 
 ---
 
-## Run Everything via Docker
+## 📡 Additional Components
 
-```bash
-docker compose up --build
-```
-
-This spins up all four suites (Playwright, Selenium, Postman/Newman, SoapUI) in isolated containers.
-
----
-
-## CI/CD
-
-Every push/PR to `main` triggers `.github/workflows/ci.yml`, which runs all four suites in parallel jobs and uploads reports as build artifacts.
+- Postman API Testing
+- SoapUI Test Suite
+- Selenium Automation
+- Docker Configuration
+- GitHub Actions CI
 
 ---
 
-## Framework Features
+## 📖 Design Pattern
 
-- Page Object Model (POM) — Playwright & Selenium
-- Data-driven testing (JSON test data)
-- Hooks (beforeEach/afterEach)
-- Screenshot utility on pass/fail
-- REST API CRUD + auth testing (Postman/Newman)
-- SOAP request/response assertions (SoapUI)
-- Multi-format reporting: Allure, Playwright HTML, Mochawesome, Newman HTML Extra
-- Fully containerized (Docker) and CI-integrated (GitHub Actions)
+This project follows the **Page Object Model (POM)** to improve:
 
----
-
-## Author
-
-QA Automation Portfolio Project — Playwright, Selenium, Postman, SoapUI, Docker, GitHub Actions.
+- Code Reusability
+- Maintainability
+- Scalability
